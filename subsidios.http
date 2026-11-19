@@ -1,0 +1,323 @@
+
+### =====================================================
+### SISTEMA DE GESTION DE SUBSIDIOS Y EMPLEADOS
+### Pruebas de endpoints REST
+###
+### Requiere extension REST Client de VS Code.
+### Seleccionar "Send Request" encima de cada peticion.
+### =====================================================
+
+@baseUrl = http://localhost:8080/api/subsidios
+@empUrl = http://localhost:8080/api/empleados
+@tipoUrl = http://localhost:8080/api/tipos-subsidio
+
+
+### =====================================================
+### 1. TIPOS DE SUBSIDIO
+### Catalogo utilizado para registrar subsidios
+### =====================================================
+
+### 1.1 Listar tipos de subsidio (200 OK)
+GET {{tipoUrl}}/listar
+
+
+### =====================================================
+### 2. CRUD DE SUBSIDIOS
+### =====================================================
+
+### 2.1 CREATE - Registrar un subsidio (200 OK)
+### Se utiliza el tipo de subsidio con ID 1
+### y el empleado con ID 1.
+### El empleado es obligatorio y debe estar activo.
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "numeroOrden": 1001,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Subsidio por enfermedad comun"
+}
+
+
+### 2.2 CREATE - Registrar otro subsidio (200 OK)
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 2
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 2
+    },
+    "numeroOrden": 1002,
+    "fechaDesde": "2026-11-05",
+    "fechaHasta": "2026-11-20",
+    "motivo": "Subsidio por maternidad"
+}
+
+
+### 2.3 READ - Listar todos los subsidios (200 OK)
+GET {{baseUrl}}/listar
+
+
+### 2.4 READ - Obtener subsidio por ID (200 OK)
+GET {{baseUrl}}/obtener/1
+
+
+### 2.5 READ - Obtener subsidio inexistente (404 Not Found)
+GET {{baseUrl}}/obtener/999
+
+
+### =====================================================
+### 3. ACTUALIZACION DE SUBSIDIOS
+### =====================================================
+
+### 3.1 UPDATE - Actualizar subsidio 1 (200 OK)
+PUT {{baseUrl}}/actualizar/1
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "numeroOrden": 1001,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-18",
+    "motivo": "Subsidio por enfermedad comun - actualizado"
+}
+
+
+### 3.2 UPDATE - Actualizar subsidio inexistente (404 Not Found)
+PUT {{baseUrl}}/actualizar/999
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "numeroOrden": 1099,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-10",
+    "motivo": "Prueba de actualizacion"
+}
+
+
+### =====================================================
+### 4. RELACIONES MANY-TO-ONE
+###
+### Subsidio (muchos) -> Empleado (uno)
+### Subsidio (muchos) -> TipoSubsidio (uno)
+### =====================================================
+
+### 4.1 Crear subsidio asociado a un empleado y tipo (200 OK)
+### Solo se envian los identificadores de las relaciones.
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 2
+    },
+    "numeroOrden": 1003,
+    "fechaDesde": "2026-11-10",
+    "fechaHasta": "2026-11-25",
+    "motivo": "Subsidio de prueba con relaciones"
+}
+
+
+### 4.2 Crear subsidio con empleado inexistente (400 Bad Request)
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 999
+    },
+    "numeroOrden": 1004,
+    "fechaDesde": "2026-11-10",
+    "fechaHasta": "2026-11-20",
+    "motivo": "Prueba con empleado inexistente"
+}
+
+
+### 4.3 Crear subsidio con tipo inexistente (400 Bad Request)
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 999
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "numeroOrden": 1005,
+    "fechaDesde": "2026-11-10",
+    "fechaHasta": "2026-11-20",
+    "motivo": "Prueba con tipo inexistente"
+}
+
+
+### 4.4 Cambiar el empleado asociado al subsidio 1
+### PUT /api/subsidios/{id}/empleado/{empleadoId}
+PUT {{baseUrl}}/1/empleado/2
+
+
+### 4.5 Cambiar el tipo de subsidio del registro 1
+### PUT /api/subsidios/{id}/tipo-subsidio/{tipoSubsidioId}
+PUT {{baseUrl}}/1/tipo-subsidio/2
+
+
+### =====================================================
+### 5. CONSULTAS POR RELACION
+### =====================================================
+
+### 5.1 Listar subsidios de un empleado
+### GET /api/subsidios/por-empleado/{empleadoId}
+GET {{baseUrl}}/por-empleado/1
+
+
+### 5.2 Listar subsidios de un tipo
+### GET /api/subsidios/por-tipo/{tipoSubsidioId}
+GET {{baseUrl}}/por-tipo/1
+
+
+### =====================================================
+### 6. VALIDACIONES
+### =====================================================
+
+### 6.1 Registrar subsidio sin numero de orden
+### Debe rechazarse si el campo tiene validacion obligatoria.
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Prueba de validacion"
+}
+
+
+### 6.2 Registrar subsidio sin empleado (400 Bad Request)
+### El empleado es un dato obligatorio.
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "numeroOrden": 1006,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Prueba sin empleado"
+}
+
+
+### 6.3 Registrar subsidio con empleado nulo (400 Bad Request)
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": null,
+    "numeroOrden": 1007,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Prueba con empleado nulo"
+}
+
+
+### 6.4 Registrar subsidio sin tipo (400 Bad Request)
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "nombreEmpleado": {
+        "idEmpleado": 1
+    },
+    "numeroOrden": 1008,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Prueba sin tipo de subsidio"
+}
+
+
+### 6.5 Registrar subsidio con empleado inactivo (400 Bad Request)
+### Sustituir el ID 3 por el de un empleado inactivo existente.
+POST {{baseUrl}}/crear
+Content-Type: application/json
+
+{
+    "tipoSubsidio": {
+        "idTipoSubsidio": 1
+    },
+    "nombreEmpleado": {
+        "idEmpleado": 3
+    },
+    "numeroOrden": 1009,
+    "fechaDesde": "2026-11-01",
+    "fechaHasta": "2026-11-15",
+    "motivo": "Prueba con empleado inactivo"
+}
+
+
+### =====================================================
+### 7. ELIMINACION
+### =====================================================
+
+### 7.1 Eliminar subsidio 3 (200 OK)
+### Ejecutar solamente si el registro existe y se desea eliminar.
+DELETE {{baseUrl}}/eliminar/3
+
+
+### 7.2 Eliminar subsidio inexistente (404 Not Found)
+DELETE {{baseUrl}}/eliminar/999
+
+
+### =====================================================
+### 8. CONSULTAS DE APOYO
+### =====================================================
+
+### 8.1 Listar empleados
+GET {{empUrl}}/listar
+
+
+### 8.2 Listar empleados activos
+GET {{empUrl}}/activos
+
+
+### 8.3 Obtener empleado por ID
+GET {{empUrl}}/obtener/1
+
+
+### 8.4 Consultar catalogo de tipos de subsidio
+GET {{tipoUrl}}/listar

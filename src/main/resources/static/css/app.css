@@ -1,0 +1,668 @@
+
+/* =====================================================================
+   app.css
+   Estilos propios del Sistema de Gestion de Subsidios y Empleados.
+   
+   Bootstrap 5.3.3 proporciona los componentes principales.
+   Este archivo contiene los estilos personalizados del sistema.
+
+   Ubicacion:
+   src/main/resources/static/css/app.css
+
+   Acceso:
+   /css/app.css
+   ===================================================================== */
+
+
+/* =====================================================================
+   1. VARIABLES DE COLOR
+   ===================================================================== */
+
+:root {
+    --navy: #13254A;
+    --azul: #2E6AAE;
+    --amarillo: #F6C343;
+    --naranja: #F08A24;
+    --crema: #FBF3E0;
+
+    --bs-primary: #2E6AAE;
+    --bs-primary-rgb: 46, 106, 174;
+
+    --color-texto: #13254A;
+    --color-secundario: #4A5875;
+    --color-borde: #D9DFEA;
+    --color-fondo: #FBF3E0;
+}
+
+
+/* =====================================================================
+   2. ESTRUCTURA GENERAL
+   ===================================================================== */
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background: var(--crema);
+    color: var(--navy);
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .95rem;
+}
+
+main {
+    flex: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+a {
+    color: var(--azul);
+}
+
+a:hover {
+    color: var(--navy);
+}
+
+
+/* =====================================================================
+   3. BARRA DE NAVEGACION
+   ===================================================================== */
+
+.barra {
+    background: var(--navy);
+    border-bottom: 4px solid var(--amarillo);
+    box-shadow: 0 2px 6px rgba(19, 37, 74, .15);
+}
+
+.barra .navbar-brand {
+    color: var(--crema);
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.barra .navbar-brand:hover {
+    color: var(--amarillo);
+}
+
+.barra .nav-link {
+    color: #E8EEF9;
+    font-weight: 600;
+    transition: color .15s ease;
+}
+
+.barra .nav-link:hover {
+    color: var(--amarillo);
+}
+
+.barra .nav-link.active {
+    color: var(--amarillo) !important;
+    font-weight: 700;
+}
+
+.barra .navbar-toggler {
+    border-color: rgba(255, 255, 255, .4);
+}
+
+.barra .navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+
+/* =====================================================================
+   4. TITULOS Y TEXTOS
+   ===================================================================== */
+
+.eyebrow {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: .85rem;
+    font-weight: 700;
+    color: #B04E0B;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.titulo {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: .4rem;
+}
+
+.subtitulo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .6rem;
+}
+
+.descripcion {
+    color: var(--color-secundario);
+    font-size: .95rem;
+}
+
+.texto-secundario {
+    color: var(--color-secundario);
+}
+
+
+/* =====================================================================
+   5. PORTADA DEL INICIO
+   ===================================================================== */
+
+.portada {
+    background: var(--azul);
+    color: var(--crema);
+
+    border-radius: 1rem;
+    padding: 2rem;
+
+    border: 3px solid var(--navy);
+    box-shadow: 8px 8px 0 var(--navy);
+}
+
+.portada .eyebrow {
+    color: var(--amarillo);
+}
+
+.portada .titulo {
+    color: var(--crema);
+}
+
+.portada p {
+    color: #F1F4FA;
+}
+
+.portada .btn {
+    font-weight: 700;
+}
+
+
+/* =====================================================================
+   6. TARJETAS DEL INICIO
+   ===================================================================== */
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+
+    height: 100%;
+    padding: 1.5rem;
+
+    background: #fff;
+    color: var(--navy);
+    text-decoration: none;
+
+    border: 3px solid var(--navy);
+    border-radius: 1rem;
+
+    box-shadow: 6px 6px 0 var(--naranja);
+
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px);
+    color: var(--navy);
+    box-shadow: 8px 8px 0 var(--naranja);
+}
+
+.tarjeta i {
+    font-size: 2rem;
+    color: var(--azul);
+    margin-bottom: .5rem;
+}
+
+.tarjeta .numero {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.tarjeta .etiqueta {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.tarjeta .detalle {
+    font-size: .9rem;
+    color: var(--color-secundario);
+}
+
+
+/* =====================================================================
+   7. ETIQUETAS DE ENDPOINT
+   ===================================================================== */
+
+.endpoint {
+    display: inline-block;
+
+    font-family: Consolas, "Courier New", monospace;
+    font-size: .78rem;
+    font-weight: 700;
+
+    background: var(--amarillo);
+    color: var(--navy);
+
+    border: 2px solid var(--navy);
+    border-radius: .4rem;
+
+    padding: .15rem .5rem;
+    white-space: nowrap;
+}
+
+
+/* =====================================================================
+   8. TARJETAS BOOTSTRAP
+   ===================================================================== */
+
+.card {
+    border: 2px solid var(--navy);
+    border-radius: .8rem;
+    box-shadow: 0 2px 5px rgba(19, 37, 74, .06);
+}
+
+.card-header {
+    background: var(--navy);
+    color: var(--crema);
+    font-weight: 700;
+    border-bottom: 3px solid var(--amarillo);
+}
+
+.card-header .subtitulo {
+    color: var(--crema);
+    margin-bottom: 0;
+}
+
+
+/* =====================================================================
+   9. FORMULARIOS
+   ===================================================================== */
+
+.form-label {
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: .35rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #B9C4D6;
+    border-radius: .45rem;
+    color: var(--navy);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 .2rem rgba(46, 106, 174, .18);
+}
+
+.form-control::placeholder {
+    color: #8994A8;
+}
+
+.form-text {
+    color: var(--color-secundario);
+    font-size: .8rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--azul);
+    border-color: var(--azul);
+}
+
+.form-check-input:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 .2rem rgba(46, 106, 174, .18);
+}
+
+.required::after {
+    content: " *";
+    color: #B02A37;
+    font-weight: 800;
+}
+
+
+/* =====================================================================
+   10. BOTONES
+   ===================================================================== */
+
+.btn-primary {
+    --bs-btn-bg: var(--azul);
+    --bs-btn-border-color: var(--azul);
+    --bs-btn-hover-bg: var(--navy);
+    --bs-btn-hover-border-color: var(--navy);
+    --bs-btn-active-bg: var(--navy);
+    --bs-btn-active-border-color: var(--navy);
+}
+
+.btn-warning {
+    --bs-btn-bg: var(--amarillo);
+    --bs-btn-border-color: var(--amarillo);
+    --bs-btn-color: var(--navy);
+    --bs-btn-hover-bg: #E7B32F;
+    --bs-btn-hover-border-color: #E7B32F;
+    --bs-btn-hover-color: var(--navy);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--azul);
+    --bs-btn-border-color: var(--azul);
+    --bs-btn-hover-bg: var(--azul);
+    --bs-btn-hover-border-color: var(--azul);
+}
+
+.btn {
+    border-radius: .45rem;
+    font-weight: 600;
+}
+
+.btn i {
+    margin-right: .2rem;
+}
+
+
+/* =====================================================================
+   11. TABLAS Y DATATABLES
+   ===================================================================== */
+
+.table {
+    color: var(--navy);
+    vertical-align: middle;
+}
+
+.table thead th {
+    background: var(--navy);
+    color: var(--crema);
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 3px solid var(--amarillo);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(46, 106, 174, .06);
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    border-radius: .5rem;
+}
+
+/* DataTables */
+
+.dt-container {
+    color: var(--navy);
+}
+
+.dt-container .dt-search input,
+.dt-container .dt-length select {
+    border: 1px solid #B9C4D6;
+    border-radius: .4rem;
+    padding: .35rem .5rem;
+    color: var(--navy);
+}
+
+.dt-container .dt-search input:focus,
+.dt-container .dt-length select:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 .15rem rgba(46, 106, 174, .15);
+}
+
+.dt-container .dt-paging .dt-paging-button {
+    border-radius: .35rem !important;
+}
+
+.dt-container .dt-paging .dt-paging-button.current {
+    background: var(--azul) !important;
+    color: #fff !important;
+    border-color: var(--azul) !important;
+}
+
+.dt-container .dt-paging .dt-paging-button:hover {
+    background: var(--navy) !important;
+    color: #fff !important;
+    border-color: var(--navy) !important;
+}
+
+.dt-container .dt-info {
+    color: var(--color-secundario);
+    font-size: .85rem;
+}
+
+
+/* =====================================================================
+   12. MODALES
+   ===================================================================== */
+
+.modal-content {
+    border: 2px solid var(--navy);
+    border-radius: .8rem;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: var(--navy);
+    color: var(--crema);
+    border-bottom: 3px solid var(--amarillo);
+}
+
+.modal-header .modal-title {
+    font-weight: 700;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.modal-footer {
+    background: #F6F7FA;
+    border-top: 1px solid var(--color-borde);
+}
+
+
+/* =====================================================================
+   13. BADGES Y ESTADOS
+   ===================================================================== */
+
+.badge {
+    font-weight: 700;
+    letter-spacing: .1px;
+    padding: .4rem .6rem;
+}
+
+.estado-activo {
+    background: #198754;
+    color: #fff;
+}
+
+.estado-inactivo {
+    background: #6C757D;
+    color: #fff;
+}
+
+
+/* =====================================================================
+   14. SELECT2
+   ===================================================================== */
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    min-height: 38px;
+    border: 1px solid #B9C4D6;
+    border-radius: .45rem;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single
+.select2-selection__rendered {
+    color: var(--navy);
+    padding-left: .75rem;
+}
+
+.select2-container--default .select2-selection--single
+.select2-selection__arrow {
+    height: 36px;
+}
+
+.select2-container--default.select2-container--focus
+.select2-selection--single {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 .2rem rgba(46, 106, 174, .18);
+}
+
+.select2-dropdown {
+    border: 1px solid var(--azul);
+    border-radius: .4rem;
+}
+
+.select2-results__option--highlighted.select2-results__option--selectable {
+    background: var(--azul);
+}
+
+
+/* =====================================================================
+   15. NOTIFICACIONES
+   ===================================================================== */
+
+.notifyjs-corner {
+    z-index: 2000 !important;
+}
+
+.notifyjs-bootstrap-base {
+    border-radius: .45rem;
+    font-weight: 600;
+}
+
+
+/* =====================================================================
+   16. BLOQUES DE CODIGO
+   ===================================================================== */
+
+.codigo {
+    background: #0F1E3D;
+    color: #E8EEF9;
+
+    padding: 1rem;
+    border-radius: .6rem;
+
+    font-family: Consolas, "Courier New", monospace;
+    font-size: .85rem;
+
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+
+/* =====================================================================
+   17. MENSAJES Y CONTENEDORES
+   ===================================================================== */
+
+.alert {
+    border-radius: .6rem;
+}
+
+.alert-primary {
+    background: #EAF1FA;
+    color: var(--navy);
+    border-color: #C4D7EF;
+}
+
+.alert-warning {
+    color: #664D03;
+}
+
+.separador {
+    border-top: 1px solid var(--color-borde);
+    margin: 1.25rem 0;
+}
+
+
+/* =====================================================================
+   18. PIE DE PAGINA
+   ===================================================================== */
+
+.pie {
+    background: var(--navy);
+    color: #BCCBE6;
+
+    padding: 1rem;
+    font-size: .85rem;
+
+    margin-top: 2rem;
+}
+
+.pie a {
+    color: var(--amarillo);
+    text-decoration: none;
+}
+
+.pie a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================================
+   19. RESPONSIVE
+   ===================================================================== */
+
+@media (max-width: 767.98px) {
+
+    main {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .portada {
+        padding: 1.25rem;
+        box-shadow: 5px 5px 0 var(--navy);
+    }
+
+    .tarjeta {
+        padding: 1.1rem;
+    }
+
+    .titulo {
+        font-size: 1.6rem;
+    }
+
+    .subtitulo {
+        font-size: 1.1rem;
+    }
+
+    .table {
+        font-size: .85rem;
+    }
+
+    .modal-dialog {
+        margin: .5rem;
+    }
+
+    .dt-container .dt-layout-row {
+        gap: .5rem;
+    }
+}
+
+
+/* =====================================================================
+   FIN DE app.css
+   ===================================================================== */

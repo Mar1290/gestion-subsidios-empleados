@@ -1,0 +1,244 @@
+html
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- ============================================================= -->
+<!-- HEAD                                                         -->
+<!-- ============================================================= -->
+<head th:replace="~{fragments/layout :: head('Inicio')}"></head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- MENÚ DE NAVEGACIÓN                                        -->
+    <!-- ========================================================= -->
+    <nav th:replace="~{fragments/layout :: navbar('inicio')}"></nav>
+
+    <!-- ========================================================= -->
+    <!-- CONTENIDO PRINCIPAL                                       -->
+    <!-- ========================================================= -->
+    <main class="container py-4">
+
+        <!-- Encabezado -->
+        <div class="mb-4">
+
+            <h2 class="fw-bold">
+                <i class="bi bi-house-door text-primary"></i>
+                Panel principal
+            </h2>
+
+            <p class="text-muted mb-0">
+                Bienvenido al Sistema de Gestión de Subsidios y Empleados.
+                Seleccione el módulo que desea administrar.
+            </p>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- TARJETAS DE ACCESO A LOS MÓDULOS                      -->
+        <!-- ===================================================== -->
+        <div class="row g-4">
+
+            <!-- MÓDULO EMPLEADOS -->
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card shadow-sm h-100 border-0">
+
+                    <div class="card-body p-4">
+
+                        <div class="mb-3">
+                            <i class="bi bi-people-fill fs-1 text-primary"></i>
+                        </div>
+
+                        <h5 class="card-title fw-bold">
+                            Empleados
+                        </h5>
+
+                        <p class="card-text text-muted">
+                            Administre la información de los empleados,
+                            sus datos generales y su estado dentro de la institución.
+                        </p>
+
+                        <a th:href="@{/empleados}"
+                           class="btn btn-primary">
+
+                            <i class="bi bi-arrow-right-circle"></i>
+                            Acceder al módulo
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- MÓDULO SUBSIDIOS -->
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card shadow-sm h-100 border-0">
+
+                    <div class="card-body p-4">
+
+                        <div class="mb-3">
+                            <i class="bi bi-file-earmark-medical-fill fs-1 text-success"></i>
+                        </div>
+
+                        <h5 class="card-title fw-bold">
+                            Subsidios
+                        </h5>
+
+                        <p class="card-text text-muted">
+                            Registre, consulte y administre los subsidios
+                            asignados a los empleados, incluyendo sus fechas,
+                            número de orden y motivo.
+                        </p>
+
+                        <a th:href="@{/subsidios}"
+                           class="btn btn-success">
+
+                            <i class="bi bi-arrow-right-circle"></i>
+                            Acceder al módulo
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- INFORMACIÓN DEL SISTEMA -->
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card shadow-sm h-100 border-0">
+
+                    <div class="card-body p-4">
+
+                        <div class="mb-3">
+                            <i class="bi bi-info-circle-fill fs-1 text-secondary"></i>
+                        </div>
+
+                        <h5 class="card-title fw-bold">
+                            Información del sistema
+                        </h5>
+
+                        <p class="card-text text-muted">
+                            Plataforma destinada a la administración
+                            y seguimiento de los subsidios de los empleados.
+                        </p>
+
+                        <span class="badge bg-secondary">
+                            Gestión institucional
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- INFORMACIÓN GENERAL                                   -->
+        <!-- ===================================================== -->
+        <div class="card shadow-sm border-0 mt-4">
+
+            <div class="card-body p-4">
+
+                <h5 class="fw-bold mb-3">
+                    <i class="bi bi-clipboard-check text-primary"></i>
+                    Funcionalidades del sistema
+                </h5>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <div class="d-flex align-items-start gap-2">
+
+                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
+
+                            <div>
+                                <strong>Administración de empleados</strong>
+                                <p class="text-muted small mb-0">
+                                    Registro y consulta de información de empleados.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="d-flex align-items-start gap-2">
+
+                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
+
+                            <div>
+                                <strong>Registro de subsidios</strong>
+                                <p class="text-muted small mb-0">
+                                    Asociación de subsidios con empleados y tipos de subsidio.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="d-flex align-items-start gap-2">
+
+                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
+
+                            <div>
+                                <strong>Control de períodos</strong>
+                                <p class="text-muted small mb-0">
+                                    Seguimiento de las fechas de inicio y finalización de los subsidios.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="d-flex align-items-start gap-2">
+
+                            <i class="bi bi-check-circle-fill text-success mt-1"></i>
+
+                            <div>
+                                <strong>Consulta de información</strong>
+                                <p class="text-muted small mb-0">
+                                    Consulta de subsidios registrados por empleado y tipo.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ========================================================= -->
+    <!-- PIE DE PÁGINA                                             -->
+    <!-- ========================================================= -->
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT                                                -->
+    <!-- ========================================================= -->
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
+</body>
+</html>

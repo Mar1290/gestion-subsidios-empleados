@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- ============================================================= -->
+<!-- HEAD: ESTILOS Y CONFIGURACION GENERAL                         -->
+<!-- ============================================================= -->
+<head th:replace="~{fragments/layout :: head('Empleados')}"></head>
+
+<body>
+
+<!-- ============================================================= -->
+<!-- MENU DE NAVEGACION                                            -->
+<!-- ============================================================= -->
+<nav th:replace="~{fragments/layout :: navbar('empleados')}"></nav>
+
+<!-- ============================================================= -->
+<!-- CONTENIDO PRINCIPAL                                           -->
+<!-- ============================================================= -->
+<main class="container py-4">
+
+    <!-- Encabezado y boton nuevo -->
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-3 gap-2">
+
+        <div>
+            <p class="eyebrow mb-1">
+                // Catalogo de empleados
+            </p>
+
+            <h1 class="titulo mb-0">
+                Gestion de Empleados
+            </h1>
+
+            <p class="text-muted mb-0">
+                Registro, consulta y administracion de empleados.
+            </p>
+        </div>
+
+        <div>
+            <button type="button"
+                    id="btnNuevoEmpleado"
+                    class="btn btn-primary">
+
+                <i class="bi bi-person-plus"></i>
+                Nuevo empleado
+
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Endpoint REST -->
+    <p class="mb-3">
+
+        <span class="endpoint">
+            GET /api/empleados/listar
+        </span>
+
+        <a class="small ms-2"
+           th:href="@{/api/empleados/listar}"
+           target="_blank">
+
+            Ver JSON
+            <i class="bi bi-box-arrow-up-right"></i>
+
+        </a>
+
+    </p>
+
+    <!-- ========================================================= -->
+    <!-- TABLA DE EMPLEADOS                                        -->
+    <!-- ========================================================= -->
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <span class="fw-bold">
+                <i class="bi bi-people"></i>
+                Listado de empleados
+            </span>
+
+            <span class="badge text-bg-primary">
+                Empleados
+            </span>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- DataTables carga los registros mediante empleado.js -->
+            <div class="table-responsive">
+
+                <table id="tablaEmpleados"
+                       class="table table-striped table-hover align-middle w-100">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del empleado</th>
+                            <th>DNI</th>
+                            <th>Cargo</th>
+                            <th>Telefono</th>
+                            <th>Estado</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- Los registros se cargan mediante empleado.js -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ============================================================= -->
+<!-- MODAL: REGISTRAR / ACTUALIZAR EMPLEADO                        -->
+<!-- ============================================================= -->
+<div class="modal fade"
+     id="modalEmpleado"
+     tabindex="-1"
+     aria-labelledby="tituloModalEmpleado"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <form id="formEmpleado"
+              class="modal-content"
+              novalidate>
+
+            <!-- Encabezado -->
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="tituloModalEmpleado">
+                    Registrar empleado
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                </button>
+
+            </div>
+
+            <!-- Cuerpo -->
+            <div class="modal-body">
+
+                <!-- Identificador -->
+                <input type="hidden" id="idEmpleado">
+
+                <!-- Nombre -->
+                <div class="mb-3">
+
+                    <label class="form-label" for="nombreEmpleado">
+                        Nombre completo
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="nombreEmpleado"
+                           maxlength="200"
+                           placeholder="Ingrese el nombre completo"
+                           required>
+
+                    <div class="invalid-feedback">
+                        El nombre del empleado es obligatorio.
+                    </div>
+
+                </div>
+
+                <!-- DNI -->
+                <div class="mb-3">
+
+                    <label class="form-label" for="dni">
+                        DNI
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="dni"
+                           maxlength="14"
+                           placeholder="Ingrese el documento de identidad"
+                           required>
+
+                    <div class="invalid-feedback">
+                        El DNI es obligatorio.
+                    </div>
+
+                </div>
+
+                <!-- Cargo -->
+                <div class="mb-3">
+
+                    <label class="form-label" for="cargo">
+                        Cargo
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="cargo"
+                           maxlength="200"
+                           placeholder="Ingrese el cargo">
+
+                </div>
+
+                <!-- Telefono -->
+                <div class="mb-3">
+
+                    <label class="form-label" for="telefono">
+                        Telefono
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="telefono"
+                           maxlength="20"
+                           placeholder="Ingrese el telefono">
+
+                </div>
+
+                <!-- Estado -->
+                <div class="form-check form-switch">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="activo"
+                           checked>
+
+                    <label class="form-check-label" for="activo">
+                        Empleado activo
+                    </label>
+
+                </div>
+
+                <small class="text-muted d-block mt-2">
+                    Los empleados inactivos no estarán disponibles
+                    para registrar nuevos subsidios.
+                </small>
+
+            </div>
+
+            <!-- Pie -->
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    <i class="bi bi-save"></i>
+                    Guardar
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================= -->
+<!-- PIE DE PAGINA Y JAVASCRIPT                                    -->
+<!-- ============================================================= -->
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
+<!-- JavaScript especifico del modulo -->
+<script th:src="@{/js/empleado.js}"></script>
+
+</body>
+</html>
